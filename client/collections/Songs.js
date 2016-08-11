@@ -7,25 +7,15 @@ var Songs = Backbone.Collection.extend({
   //   return this.add(array).bind(this);
   // },
 
+  url: 'https://api.parse.com/1/classes/songs',
+  parse: function(response) {
+    return response.results;
+  },
+
+
 
   initialize: function() {
-    $.ajax({
-      url: 'https://api.parse.com/1/classes/songs',
-      type: 'GET',
-      context: this,
-      data: '',
-      success: function(data) {
-        this.set(data.results);
-      },
-      error: function() {}
-    });
+    this.fetch();
   },
 
 });
-// $.ajax({
-//   type: "POST",
-//   url: url,
-//   data: data,
-//   success: success,
-//   dataType: dataType
-// });

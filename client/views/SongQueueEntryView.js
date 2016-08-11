@@ -6,7 +6,7 @@ var SongQueueEntryView = Backbone.View.extend({
 
   events: {
     'click': function() {
-      // this.model.dequeue(this.model);
+      this.model.dequeue(this.model);
       this.model.play();
     }
   },
@@ -15,19 +15,3 @@ var SongQueueEntryView = Backbone.View.extend({
     return this.$el.html(this.template(this.model.attributes));
   }
 });
-
-
-
-  // tagName: 'tr',
-
-  // template: _.template('<td>(<%= artist %>)</td><td><%= title %></td>'),
-
-  // events: {
-  //   'click': function() {
-  //     this.model.play();
-  //   }
-  // },
-
-  // render: function() {
-  //   return this.$el.html(this.template(this.model.attributes));
-  // }
