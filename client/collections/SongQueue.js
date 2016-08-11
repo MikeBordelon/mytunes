@@ -5,31 +5,31 @@ var SongQueue = Backbone.Collection.extend({
 
 
  
-  playFirst: function(url) {
-    console.log(this.length)
-    return url;
+  playFirst: function() {
+
+    this.models[0].play();
   },
-
-  // this.on('all', function(e) {
-  //   if (e === add) {
-  //     this.playFirst(e.url);      
-  //   }
-    
-  // });
-
-  // add: function(song) {
-  //   this.
-  //   if (this.length === 1) {
-  //     return this.playFirst(song.url);  
-  //   } 
-  // },
-
+  
   initialize: function() {
-    this.on('add', function(e) {
-      console.log(e);
-      if (this.length === 1) {
-        return this.playFirst(e.url);  
-      }   
+    this.on({
+      'add': function() {
+        if (this.length === 1) {
+          return this.playFirst();  
+        }
+      },
+      'ended': function() {
+        this.remove(this.models[0]);
+
+        if (this.length) {
+          return this.playFirst();   
+        }
+      },
+      'dequeue': function() {
+        this.remove(this.models[this.models.length - 1]);        
+      },
+      'enqueue': function() {
+        this.add();
+      },
     });
   },
 
