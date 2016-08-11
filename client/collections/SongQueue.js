@@ -6,7 +6,6 @@ var SongQueue = Backbone.Collection.extend({
 
  
   playFirst: function() {
-
     this.models[0].play();
   },
   
@@ -19,19 +18,23 @@ var SongQueue = Backbone.Collection.extend({
       },
       'ended': function() {
         this.remove(this.models[0]);
-
         if (this.length) {
           return this.playFirst();   
         }
       },
       'dequeue': function() {
-        this.remove(this.models[this.models.length - 1]);        
+        this.remove(this.models[0]);        
       },
-      'enqueue': function() {
-        this.add();
-      },
+      
+      'enqueue': function(song) {
+        this.add(song);       
+      }
     });
-  },
+
+    // this.on('enqueue', function() {
+    //   console.log('collection log: ', this);
+    // });
+  }
 
 
 });
